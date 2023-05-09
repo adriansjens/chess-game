@@ -1,11 +1,10 @@
-﻿using ChessGame.Pieces;
+﻿using ChessGame.Game.Constants;
+using ChessGame.Pieces;
 
 namespace ChessGame.Game.PieceLogic
 {
     public class ChessPieceFactory
     {
-        private readonly string[] rankSymbols = { "a", "b", "c", "d", "e", "f", "g", "h" };
-
         private Dictionary<string, IChessPiece> _chessPieces = new()
         {
             { "a1", new Rook(ChessColor.White) },
@@ -38,7 +37,13 @@ namespace ChessGame.Game.PieceLogic
 
         private void CreatePawns()
         {
-            foreach (var symbol in rankSymbols) 
+            var whitePawnMoveLimit = new MoveLimit(
+                    new IncrementalMoveLimit(1), 
+                    new DecrementalMoveLimit()
+                );
+
+            var whitePawnMoveset = new WhitePawnMoveset(new MoveLimit(new IncrementalMoveLimit(), new DecrementalMoveLimit());
+            foreach (var symbol in SquareDesignationSymbols.rankSymbols) 
             {
                 _chessPieces.Add(symbol + "7", new Pawn(ChessColor.Black));
                 _chessPieces.Add(symbol + "2", new Pawn(ChessColor.White));
